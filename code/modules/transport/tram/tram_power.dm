@@ -7,7 +7,7 @@
 	anchored = TRUE
 	density = FALSE
 
-	resistance_flags = RESIST_ALL
+	resistance_flags = ALL
 	max_integrity = 750
 	pixel_y = 32
 	/// The tram platform we're connected to and providing power

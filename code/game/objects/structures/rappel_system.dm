@@ -65,7 +65,7 @@
 	//What condition the rope is in (good, needs cord replacing, self-repairing, etc.)
 	var/rappel_condition = RAPPEL_CONDITION_GOOD
 
-/obj/structure/dropship_equipment/shuttle/rappel_system/Initialize(mapload)
+/obj/structure/dropship_equipment/shuttle/rappel_system/Initialize()
 	. = ..()
 	rope = new(src)
 
@@ -358,7 +358,7 @@
 	///The rappel system this rope originates from
 	var/obj/structure/dropship_equipment/shuttle/rappel_system/parent_system
 
-/obj/effect/rappel_rope/tadpole/Initialize(mapload)
+/obj/effect/rappel_rope/tadpole/Initialize()
 	. = ..()
 	if(istype(loc, /obj/structure/dropship_equipment/shuttle/rappel_system))
 		parent_system = loc

@@ -104,19 +104,19 @@
 			if(!ishuman(usr))
 				to_chat(usr, span_warning("You can't do it."))
 			else
-				message.forceMove(usr.loc)
+				message.loc = usr.loc
 				usr.put_in_hands(message)
 				to_chat(usr, span_notice("You take the paper out of \the [src]."))
 				message = null
 	if(href_list["scan"])
 		if(idscan)
 			if(ishuman(usr))
-				idscan.forceMove(usr.loc)
+				idscan.loc = usr.loc
 				if(!usr.get_active_held_item())
 					usr.put_in_hands(idscan)
 				idscan = null
 			else
-				idscan.forceMove(loc)
+				idscan.loc = loc
 				idscan = null
 		else
 			var/obj/item/I = usr.get_active_held_item()

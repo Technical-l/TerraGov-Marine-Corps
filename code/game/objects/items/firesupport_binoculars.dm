@@ -18,7 +18,7 @@
 		FIRESUPPORT_TYPE_CRUISE_MISSILE_UNLIMITED,
 	)
 
-/obj/item/binoculars/fire_support/Initialize(mapload)
+/obj/item/binoculars/fire_support/Initialize()
 	. = ..()
 	update_icon()
 	for(var/fire_support_type in mode_list)

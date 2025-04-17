@@ -1732,7 +1732,7 @@ Status: [status ? status : "Unknown"] | Damage: [health ? health : "None"]
 
 
 	else if(href_list["playtime"])
-		if(!check_rights(R_ADMIN|R_MENTOR))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locate(href_list["playtime"]) in GLOB.mob_list

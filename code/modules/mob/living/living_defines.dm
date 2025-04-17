@@ -92,10 +92,8 @@
 	/// Lazy list of FOV traits that will apply a FOV view when handled.
 	var/list/fov_traits
 
-	/// Direction that this mob is looking at, used for the look_up and look_down procs
-	var/looking_vertically = NONE
-	///looking holder we use for look_up and look_down. we use this over resetting to the turf because we want to glide
-	var/atom/movable/looking_holder/looking_holder
+	/// Is the mob looking vertically
+	var/looking_vertically = FALSE
 
 	///a list of all status effects the mob has
 	var/list/status_effects

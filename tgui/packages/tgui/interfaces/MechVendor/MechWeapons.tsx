@@ -300,12 +300,12 @@ const WeaponsTab = (props) => {
   const { weapons, back_weapons } = data.all_equipment;
   const { setShowDesc } = props;
   return (
-    <Stack.Item grow>
-      <Stack fill>
-        <Stack.Item grow>
+    <Stack.Item>
+      <Stack>
+        <Stack.Item>
           <WeaponModuleList listtoshow={weapons} setShowDesc={setShowDesc} />
         </Stack.Item>
-        <Stack.Item grow>
+        <Stack.Item>
           <WeaponModuleList
             listtoshow={back_weapons}
             setShowDesc={setShowDesc}
@@ -427,7 +427,6 @@ const WeaponModuleList = (props) => {
           <Collapsible
             key={module.type}
             title={module.name}
-            icon={useback ? 'person' : 'hand'}
             buttons={
               <>
                 <Button
@@ -498,12 +497,12 @@ export const MechWeapons = (props) => {
   const [equipmentTab, setequipmentTab] = useState(equipTabs[0]);
   const { setShowDesc } = props;
   return (
-    <Stack fill>
+    <Stack>
       <Stack.Item>
         <SelectedEquipment />
       </Stack.Item>
-      <Stack.Item grow>
-        <Section lineHeight={1.75} fontSize={'13px'}>
+      <Stack.Item>
+        <Section lineHeight={1.75} maxWidth={'740px'} fontSize={'13px'}>
           <Tabs fluid>
             {equipTabs.map((tabname) => {
               return (

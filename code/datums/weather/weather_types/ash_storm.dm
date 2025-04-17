@@ -23,7 +23,6 @@
 	probability = 40
 
 	barometer_predictable = TRUE
-	play_screen_indicator = TRUE
 
 	var/datum/looping_sound/active_ashstorm/sound_active_ashstorm = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_ashstorm/sound_weak_ashstorm = new(list(), FALSE, TRUE)
@@ -92,6 +91,5 @@
 	end_sound = null
 
 	aesthetic = TRUE
-	play_screen_indicator = FALSE
 
 	probability = 60

@@ -42,7 +42,6 @@
 
 /obj/structure/ammo_rack/secondary
 	name = "secondary ammo rack"
-	plane = WALL_PLANE
 	icon_state = "secondaryrack"
 	storage_type = /datum/storage/tank/ammorack_secondary
 

@@ -2,9 +2,6 @@
 	parent_type = /datum // black magic
 	preload_rsc = PRELOAD_RSC // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 	view = WORLD_VIEW
-	show_popup_menus = TRUE // right click menu no longer shows up
-	control_freak = CONTROL_FREAK_MACROS
-
 	var/datum/tooltip/tooltips
 
 	//Admin related
@@ -106,11 +103,6 @@
 
 	var/list/parallax_layers
 	var/list/parallax_layers_cached
-	var/atom/movable/screen/parallax_home/parallax_rock
-	/// Do we want to do parallax animations at all?
-	/// Exists to prevent laptop fires
-	var/do_parallax_animations = TRUE
-
 	var/atom/movable/movingmob
 	var/turf/previous_turf
 	///world.time of when we can state animate()ing parallax again
@@ -121,8 +113,6 @@
 	var/parallax_throttle = 0
 	var/parallax_movedir = 0
 	var/parallax_layers_max = 4
-	/// Timers for the area directional animation, one for each layer
-	var/list/parallax_animate_timers
 	var/parallax_animate_timer
 
 	/**
@@ -139,5 +129,6 @@
 	/// The direction we WANT to move, based off our keybinds
 	/// Will be udpated to be the actual direction later on
 	var/intended_direction = NONE
-	/// The DPI scale of the client. 1 is equivalent to 100% window scaling, 2 will be 200% window scaling
-	var/window_scaling
+
+	show_popup_menus = TRUE // right click menu no longer shows up
+	control_freak = CONTROL_FREAK_MACROS

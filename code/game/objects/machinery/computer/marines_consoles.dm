@@ -210,7 +210,7 @@
 				GLOB.datacore.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 				if(ishuman(usr))
-					modify.forceMove(drop_location())
+					modify.loc = usr.loc
 					if(!usr.get_active_held_item())
 						usr.put_in_hands(modify)
 					modify = null
@@ -221,24 +221,24 @@
 				var/obj/item/I = usr.get_active_held_item()
 				if (istype(I, /obj/item/card/id))
 					usr.drop_held_item()
-					I.forceMove(src)
+					I.loc = src
 					modify = I
 			authenticated = 0
 		if ("scan")
 			if (scan)
 				if(ishuman(usr))
-					modify.forceMove(drop_location())
+					scan.loc = usr.loc
 					if(!usr.get_active_held_item())
 						usr.put_in_hands(scan)
 					scan = null
 				else
-					modify.forceMove(drop_location())
+					scan.loc = src.loc
 					scan = null
 			else
 				var/obj/item/I = usr.get_active_held_item()
 				if (istype(I, /obj/item/card/id))
 					usr.drop_held_item()
-					modify.forceMove(src)
+					I.loc = src
 					scan = I
 			authenticated = 0
 		if ("auth")

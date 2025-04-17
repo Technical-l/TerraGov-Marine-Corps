@@ -29,7 +29,7 @@
 	AddComponent(/datum/component/anti_juggling)
 	set_jump_component()
 
-/mob/living/carbon/human/proc/human_z_changed(datum/source, old_z, new_z, same_z_layer)
+/mob/living/carbon/human/proc/human_z_changed(datum/source, old_z, new_z)
 	SIGNAL_HANDLER
 	LAZYREMOVE(GLOB.humans_by_zlevel["[old_z]"], src)
 	LAZYADD(GLOB.humans_by_zlevel["[new_z]"], src)
@@ -614,6 +614,11 @@
 				popup.open(FALSE)
 			break
 
+	if(href_list["lookitem"])
+		var/obj/item/I = locate(href_list["lookitem"])
+		if(istype(I))
+			I.examine(usr)
+
 	return ..()
 
 /mob/living/carbon/human/grabbed_self_attack()
@@ -787,9 +792,6 @@
 	var/datum/species/oldspecies = species
 
 	species = GLOB.all_species[new_species]
-
-	if(!species)
-		CRASH("Failed to set species to [new_species]")
 
 	if(oldspecies)
 		//additional things to change when we're no longer that species

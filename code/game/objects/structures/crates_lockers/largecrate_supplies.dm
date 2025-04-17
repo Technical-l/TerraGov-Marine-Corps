@@ -413,7 +413,7 @@
 
 		var/obj/machinery/autodoc/event/E = new (T)
 		var/obj/machinery/computer/autodoc_console/C = new (T)
-		C.forceMove(get_step(T, EAST))
+		C.loc = get_step(T, EAST)
 		E.connected = C
 		C.connected = E
 
@@ -452,6 +452,6 @@
 
 		var/obj/machinery/sleeper/E = new (T)
 		var/obj/machinery/computer/sleep_console/C = new (T)
-		C.forceMove(get_step(T, EAST))
+		C.loc = get_step(T, EAST)
 		E.connected = C
 		C.connected = E

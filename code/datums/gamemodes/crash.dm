@@ -20,11 +20,10 @@
 		/datum/job/terragov/squad/engineer = 5,
 		/datum/job/xenomorph = CRASH_LARVA_POINTS_NEEDED,
 	)
-	respawn_time = 15 MINUTES
 	xenorespawn_time = 3 MINUTES
 	blacklist_ground_maps = list(MAP_BIG_RED, MAP_DELTA_STATION, MAP_LV_624, MAP_WHISKEY_OUTPOST, MAP_OSCAR_OUTPOST, MAP_FORT_PHOBOS, MAP_CHIGUSA, MAP_LAVA_OUTPOST, MAP_CORSAT, MAP_KUTJEVO_REFINERY, MAP_BLUESUMMERS)
 	tier_three_penalty = 1
-	restricted_castes = list(/datum/xeno_caste/wraith, /datum/xeno_caste/hivemind)
+	restricted_castes = list(/datum/xeno_caste/hivelord, /datum/xeno_caste/wraith, /datum/xeno_caste/hivemind)
 
 	// Round end conditions
 	var/shuttle_landed = FALSE
@@ -41,12 +40,6 @@
 	///Last time larva balance was checked
 	var/last_larva_check
 	bioscan_interval = 0
-
-	evo_requirements = list(
-		/datum/xeno_caste/king = 14,
-		/datum/xeno_caste/queen = 10,
-		/datum/xeno_caste/hivelord = 8,
-	)
 
 /datum/game_mode/infestation/crash/pre_setup()
 	. = ..()
@@ -135,8 +128,8 @@
 	. = ..()
 
 	if(world.time > last_larva_check + larva_check_interval)
-		last_larva_check = world.time
 		balance_scales()
+		last_larva_check = world.time
 
 /datum/game_mode/infestation/crash/proc/crash_shuttle(obj/docking_port/stationary/target)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CRASH_SHIP_LANDED)
@@ -199,7 +192,6 @@
 
 /// Adds more xeno job slots if needed.
 /datum/game_mode/infestation/crash/proc/balance_scales()
-	SHOULD_NOT_SLEEP(TRUE)
 	var/datum/hive_status/normal/xeno_hive = GLOB.hive_datums[XENO_HIVE_NORMAL]
 	var/datum/job/xeno_job = SSjob.GetJobType(/datum/job/xenomorph)
 	// Spawn more xenos to help maintain the ratio.
@@ -208,9 +200,9 @@
 		xeno_job.add_job_positions(1)
 		xeno_hive.update_tier_limits()
 		return
-	// Make sure there is at least two xenos regardless of ratio.
+	// Make sure there is at least one xeno regardless of ratio.
 	var/total_xenos = xeno_hive.get_total_xeno_number() + (xeno_job.total_positions - xeno_job.current_positions)
-	if(total_xenos < 2)
+	if(!total_xenos)
 		xeno_job.add_job_positions(1)
 		xeno_hive.update_tier_limits()
 

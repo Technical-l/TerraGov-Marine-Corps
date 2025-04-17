@@ -5,20 +5,17 @@ import { RADIO_PREFIXES, WindowSize } from './constants';
  * Once byond signals this via keystroke, it
  * ensures window size, visibility, and focus.
  */
-export function windowOpen(channel: Channel, scale: boolean): void {
-  setWindowVisibility(true, scale);
+export function windowOpen(channel: Channel): void {
+  setWindowVisibility(true);
   Byond.sendMessage('open', { channel });
-  Byond.winset('tgui_say.browser', {
-    focus: true,
-  });
 }
 
 /**
  * Resets the state of the window and hides it from user view.
  * Sending "close" logs it server side.
  */
-export function windowClose(scale: boolean): void {
-  setWindowVisibility(false, scale);
+export function windowClose(): void {
+  setWindowVisibility(false);
   Byond.winset('map', {
     focus: true,
   });
@@ -28,27 +25,23 @@ export function windowClose(scale: boolean): void {
 /**
  * Modifies the window size.
  */
-export function windowSet(size = WindowSize.Small, scale: boolean): void {
-  const pixelRatio = scale ? window.devicePixelRatio : 1;
+export function windowSet(size = WindowSize.Small): void {
+  let sizeStr = `${WindowSize.Width}x${size}`;
 
-  const sizeStr = `${WindowSize.Width * pixelRatio}x${size * pixelRatio}`;
+  Byond.winset('tgui_say.browser', {
+    size: sizeStr,
+  });
 
-  Byond.winset(null, {
-    'tgui_say.size': sizeStr,
-    'tgui_say.browser.size': sizeStr,
+  Byond.winset('tgui_say', {
+    size: sizeStr,
   });
 }
 
 /** Helper function to set window size and visibility */
-function setWindowVisibility(visible: boolean, scale: boolean): void {
-  const pixelRatio = scale ? window.devicePixelRatio : 1;
-
-  const sizeStr = `${WindowSize.Width * pixelRatio}x${WindowSize.Small * pixelRatio}`;
-
-  Byond.winset(null, {
-    'tgui_say.is-visible': visible,
-    'tgui_say.size': sizeStr,
-    'tgui_say.browser.size': sizeStr,
+function setWindowVisibility(visible: boolean): void {
+  Byond.winset('tgui_say', {
+    'is-visible': visible,
+    size: `${WindowSize.Width}x${WindowSize.Small}`,
   });
 }
 

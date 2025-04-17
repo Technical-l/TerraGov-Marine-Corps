@@ -27,6 +27,7 @@
 
 	proxy_view.appearance = view
 	proxy_view.color = current_color
+	proxy_view.display_to(owner.mob)
 
 
 /datum/color_matrix_editor/Destroy(force, ...)
@@ -53,7 +54,6 @@
 	if(!ui)
 		ui = new(user, src, "ColorMatrixEditor")
 		ui.open()
-		proxy_view.display_to(owner.mob, ui.window)
 
 /datum/color_matrix_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()

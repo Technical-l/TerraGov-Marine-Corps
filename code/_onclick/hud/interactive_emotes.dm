@@ -53,7 +53,7 @@
 	///The reference to the existing timer
 	var/timer_id
 
-/atom/movable/screen/interaction/Initialize(mapload)
+/atom/movable/screen/interaction/Initialize(mob/user)
 	. = ..()
 	desc += "\nLeft-click to accept interaction. Right-click or SHIFT + left-click to decline."
 

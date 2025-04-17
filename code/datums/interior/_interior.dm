@@ -19,7 +19,6 @@
 /datum/interior/New(atom/container, datum/callback/exit_callback)
 	..()
 	src.container = container
-	ADD_TRAIT(container, TRAIT_HAS_INTERIOR, REF(src))
 	src.exit_callback = exit_callback
 	RegisterSignal(container, COMSIG_QDELETING, PROC_REF(handle_container_del))
 	RegisterSignal(container, COMSIG_ATOM_ENTERED, PROC_REF(on_container_enter))
@@ -43,7 +42,6 @@
 	connect_atoms()
 
 /datum/interior/Destroy(force, ...)
-	REMOVE_TRAIT(container, TRAIT_HAS_INTERIOR, REF(src))
 	for(var/mob/occupant AS in occupants)
 		mob_leave(occupant)
 	exit_callback = null

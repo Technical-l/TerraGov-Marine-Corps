@@ -53,6 +53,7 @@
 		/datum/action/ability/activable/xeno/cocoon,
 		/datum/action/ability/activable/xeno/plant_weeds,
 		/datum/action/ability/activable/xeno/secrete_resin,
+		/datum/action/ability/activable/xeno/secrete_special_resin,
 		/datum/action/ability/xeno_action/place_acidwell,
 		/datum/action/ability/activable/xeno/essence_link,
 		/datum/action/ability/activable/xeno/psychic_cure/acidic_salve,
@@ -64,7 +65,6 @@
 		/datum/action/ability/xeno_action/pheromones/emit_warding,
 		/datum/action/ability/xeno_action/pheromones/emit_frenzy,
 		/datum/action/ability/activable/xeno/recycle,
-		/datum/action/ability/activable/xeno/place_pattern,
 	)
 
 /datum/xeno_caste/drone/normal
@@ -83,6 +83,7 @@
 		/datum/action/ability/activable/xeno/cocoon,
 		/datum/action/ability/activable/xeno/plant_weeds,
 		/datum/action/ability/activable/xeno/secrete_resin,
+		/datum/action/ability/activable/xeno/secrete_special_resin,
 		/datum/action/ability/xeno_action/place_acidwell,
 		/datum/action/ability/activable/xeno/essence_link,
 		/datum/action/ability/activable/xeno/psychic_cure/acidic_salve,
@@ -96,5 +97,4 @@
 		/datum/action/ability/xeno_action/pheromones/emit_warding,
 		/datum/action/ability/xeno_action/pheromones/emit_frenzy,
 		/datum/action/ability/activable/xeno/recycle,
-		/datum/action/ability/activable/xeno/place_pattern,
 	)

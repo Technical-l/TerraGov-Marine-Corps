@@ -20,18 +20,18 @@
 	return key_name in config.modes
 
 /datum/config_entry/string/alert_delta
-	default = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
 /datum/config_entry/number/revival_brain_life
-	default = -1
+	config_entry_value = -1
 	integer = FALSE
 	min_val = -1
 
 /datum/config_entry/keyed_list/multiplicative_movespeed
 	key_mode = KEY_MODE_TYPE
 	value_mode = VALUE_MODE_NUM
-	default = list(			//DEFAULTS
-		/mob/living/simple_animal = 1
+	config_entry_value = list(			//DEFAULTS
+	/mob/living/simple_animal = 1
 	)
 
 /datum/config_entry/keyed_list/multiplicative_movespeed/ValidateAndSet()
@@ -48,17 +48,17 @@
 	abstract_type = /datum/config_entry/number/movedelay
 
 /datum/config_entry/number/movedelay/run_delay
-	default = 0
+	config_entry_value = 0
 	integer = FALSE
 
 /datum/config_entry/number/movedelay/walk_delay
-	default = 0
+	config_entry_value = 0
 	integer = FALSE
 
 /datum/config_entry/flag/limbs_can_break
 
 /datum/config_entry/number/revive_grace_period
-	default = 5 MINUTES
+	config_entry_value = 5 MINUTES
 	min_val = 0
 
 /datum/config_entry/flag/bones_can_break
@@ -70,7 +70,7 @@
 /datum/config_entry/flag/jobs_have_minimal_access
 
 /datum/config_entry/number/minimal_access_threshold	//If the number of players is larger than this threshold, minimal access will be turned on.
-	default = 10
+	config_entry_value = 10
 	min_val = 0
 
 /datum/config_entry/flag/humans_need_surnames
@@ -84,27 +84,26 @@
 /datum/config_entry/flag/xenos_on_strike
 
 /datum/config_entry/number/min_xenos
-	default = 5
+	config_entry_value = 5
 	min_val = 1
-
 /datum/config_entry/keyed_list/lobby_music
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
 
 /datum/config_entry/flag/infestation_ert_allowed
-	default = TRUE
+	config_entry_value = TRUE
 
 /datum/config_entry/flag/events_disallowed
-	default = FALSE
+	config_entry_value = FALSE
 
 /datum/config_entry/flag/monitor_disallowed
-	default = FALSE
+	config_entry_value = FALSE
 
 /datum/config_entry/flag/aggressive_changelog
 
 ///If TRUE, the evo proc will consider spawn roony instead of runner on evo
 /datum/config_entry/flag/roony
-	default = FALSE
+	config_entry_value = FALSE
 
 /datum/config_entry/flag/tts_no_whisper
 
@@ -119,11 +118,6 @@
 	min_val = 1
 
 /datum/config_entry/str_list/tts_voice_blacklist
-
-/// Maximum timeout for http calls
-/datum/config_entry/number/tts_http_timeout_seconds
-	default = 30
-	min_val = 0
 
 /datum/config_entry/flag/give_tutorials_without_db
 

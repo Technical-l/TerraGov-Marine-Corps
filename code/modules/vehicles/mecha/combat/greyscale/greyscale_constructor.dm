@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(greyscale_weapons_data, generate_greyscale_weapons_data())
 		return
 	ui = new(user, src, "MechVendor", name)
 	ui.open()
-	mech_view.display_to(user, ui.window)
+	mech_view.display_to(user)
 
 /obj/machinery/computer/mech_builder/ui_close(mob/user)
 	. = ..()
@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(greyscale_weapons_data, generate_greyscale_weapons_data())
 				tgui_alert(user, "Your mech is too heavy to deploy!")
 				return FALSE
 			addtimer(CALLBACK(src, PROC_REF(deploy_mech)), 1 SECONDS)
-			playsound(get_step(src, dir), 'sound/machines/elevator_move.ogg', 50, FALSE)
+			playsound(get_step(src, dir), 'sound/machines/elevator_move.ogg', 50, 0)
 			if(!isspatialagentjob(user.job))
 				S_TIMER_COOLDOWN_START(src, COOLDOWN_MECHA, 5 MINUTES)
 				ADD_TRAIT(usr, TRAIT_HAS_SPAWNED_MECH, MECH_VENDOR_TRAIT)
@@ -475,8 +475,8 @@ GLOBAL_LIST_INIT(greyscale_weapons_data, generate_greyscale_weapons_data())
 		var/obj/item/mecha_parts/mecha_equipment/new_equip = new equipment
 		new_equip.attach(mech)
 
-	mech.pixel_z = 240
-	animate(mech, time=4 SECONDS, pixel_z=initial(mech.pixel_z), easing=SINE_EASING|EASE_OUT)
+	mech.pixel_y = 240
+	animate(mech, time=4 SECONDS, pixel_y=initial(mech.pixel_y), easing=SINE_EASING|EASE_OUT)
 
 	balloon_alert_to_viewers("Beep. Mecha ready for use.")
 	playsound(src, 'sound/machines/chime.ogg', 30, 1)

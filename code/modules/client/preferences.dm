@@ -24,7 +24,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/ui_style_alpha = 230
 	var/tgui_fancy = TRUE
 	var/tgui_lock = FALSE
-	var/ui_scale = TRUE
 	var/tgui_input = TRUE
 	var/tgui_input_big_buttons = FALSE
 	var/tgui_input_buttons_swap = FALSE
@@ -198,7 +197,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	/// New TGUI Preference preview
 	var/map_name = "player_pref_map"
-	var/atom/movable/screen/map_view/preference_preview/screen_main
+	var/atom/movable/screen/map_view/screen_main
+	var/atom/movable/screen/background/screen_bg
 
 	/// If unique action will only act on the item in the active hand. If false, it will try to act on the item on the inactive hand as well in certain conditions.
 	var/unique_action_use_active_hand = TRUE
@@ -215,9 +215,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///State tracking of hive status toggles
 	var/status_toggle_flags = HIVE_STATUS_DEFAULTS
 
-	///Bump attacking preference
-	var/toggle_bump_attacking = TRUE
-
 /datum/preferences/New(client/C)
 	if(!istype(C))
 		return
@@ -226,7 +223,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// Initialize map objects
 	screen_main = new
-	screen_main.generate_view("screen")
+	screen_main.name = "screen"
+	screen_main.assigned_map = map_name
+	screen_main.del_on_map_removal = FALSE
+	screen_main.screen_loc = "[map_name]:1,1"
+
+	screen_bg = new
+	screen_bg.assigned_map = map_name
+	screen_bg.del_on_map_removal = FALSE
+	screen_bg.icon_state = "clear"
+	screen_bg.fill_rect(1, 1, 4, 1)
 
 	if(!IsGuestKey(C.key))
 		load_path(C.ckey)

@@ -125,11 +125,6 @@
 		return
 	icon_state = "xeno_cocoon_open"
 
-/obj/structure/cocoon/can_be_pulled(user, force)
-	if(isxeno(user))
-		return FALSE
-	return ..()
-
 /obj/structure/cocoon/opened_cocoon
 	icon_state = "xeno_cocoon_open"
 	anchored = FALSE

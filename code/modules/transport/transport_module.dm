@@ -10,7 +10,7 @@
 	base_icon_state = "catwalk"
 	density = FALSE
 	anchored = TRUE
-	resistance_flags = RESIST_ALL
+	resistance_flags = ALL
 
 	max_integrity = 50
 	layer = TRAM_FLOOR_LAYER
@@ -128,15 +128,12 @@
 	transport_contents -= potential_rider
 	changed_gliders -= potential_rider
 
-	UnregisterSignal(potential_rider, list(COMSIG_QDELETING, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, SIGNAL_ADDTRAIT(TRAIT_TANK_DESANT)))
+	UnregisterSignal(potential_rider, list(COMSIG_QDELETING, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE))
 
 /obj/structure/transport/linear/proc/add_item_on_transport(datum/source, atom/movable/new_transport_contents)
 	SIGNAL_HANDLER
-	var/static/list/blacklisted_types = typecacheof(list(/obj/structure/fluff/tram_rail, /obj/effect/decal/cleanable, /obj/structure/transport/linear, /mob/camera, /obj/hitbox))
+	var/static/list/blacklisted_types = typecacheof(list(/obj/structure/fluff/tram_rail, /obj/effect/decal/cleanable, /obj/structure/transport/linear, /mob/camera))
 	if(is_type_in_typecache(new_transport_contents, blacklisted_types) || new_transport_contents.invisibility == INVISIBILITY_ABSTRACT || level == 1) //prevents the tram from stealing things like landmarks
-		return FALSE
-	// how many layers of riding can we fit
-	if(HAS_TRAIT(new_transport_contents, TRAIT_TANK_DESANT))
 		return FALSE
 	if(new_transport_contents in transport_contents)
 		return FALSE
@@ -145,7 +142,7 @@
 		ADD_TRAIT(new_transport_contents, TRAIT_CANNOT_BE_UNBUCKLED, VEHICLE_TRAIT)
 
 	transport_contents += new_transport_contents
-	RegisterSignals(new_transport_contents, list(COMSIG_QDELETING, SIGNAL_ADDTRAIT(TRAIT_TANK_DESANT)), PROC_REF(remove_item_from_transport))
+	RegisterSignal(new_transport_contents, COMSIG_QDELETING, PROC_REF(remove_item_from_transport))
 
 	return TRUE
 

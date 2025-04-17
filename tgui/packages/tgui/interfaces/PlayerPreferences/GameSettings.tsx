@@ -18,7 +18,7 @@ const MultiZPerfToString = (integer) => {
   let returnval = '';
   switch (integer) {
     case -1:
-      returnval = 'No Culling';
+      returnval = 'Standard';
       break;
     case 0:
       returnval = 'Low';
@@ -186,7 +186,7 @@ export const GameSettings = (props) => {
                 label="Multi-Z Detail"
                 value={MultiZPerfToString(multiz_performance)}
                 action="multiz_performance"
-                tooltip="How many Multi-Z levels are rendered before they start getting culled. Decrease this to improve performance in case of lag on multi-z maps."
+                tooltip="How detailed multi-z is. Lower this to improve performance."
               />
               <ToggleFieldPreference
                 label="TGUI Window Mode"
@@ -201,14 +201,6 @@ export const GameSettings = (props) => {
                 action="tgui_lock"
                 leftLabel={'Free (default)'}
                 rightLabel={'Primary monitor'}
-              />
-              <ToggleFieldPreference
-                label="UI scaling"
-                value="ui_scale"
-                action="ui_scale"
-                leftLabel={'Enabled'}
-                rightLabel={'Disabled'}
-                tooltip="Whether UIs should scale up to match your monitor scaling"
               />
               <ToggleFieldPreference
                 label="TGUI Input boxes"
@@ -310,15 +302,6 @@ export const GameSettings = (props) => {
                 label="Show typing indicator"
                 value="show_typing"
                 action="show_typing"
-                leftValue={1}
-                leftLabel={'Enabled'}
-                rightValue={0}
-                rightLabel={'Disabled'}
-              />
-              <ToggleFieldPreference
-                label="Toggle bump attacking"
-                value="toggle_bump_attacking"
-                action="toggle_bump_attacking"
                 leftValue={1}
                 leftLabel={'Enabled'}
                 rightValue={0}

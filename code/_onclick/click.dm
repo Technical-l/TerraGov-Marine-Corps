@@ -68,34 +68,31 @@
 		modifiers["icon-y"] = num2text(ABS_PIXEL_TO_REL(text2num(modifiers["icon-y"])))
 		params = list2params(modifiers)
 
-	if(modifiers[BUTTON4] || modifiers[BUTTON5])
-		return
-
-	if(modifiers[SHIFT_CLICK] && modifiers[MIDDLE_CLICK])
+	if(modifiers["shift"] && modifiers["middle"])
 		ShiftMiddleClickOn(A)
 		return
-	if(modifiers[SHIFT_CLICK] && modifiers[CTRL_CLICK])
+	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
-	if(modifiers[CTRL_CLICK] && modifiers[MIDDLE_CLICK])
+	if(modifiers["ctrl"] && modifiers["middle"])
 		CtrlMiddleClickOn(A)
 		return
-	if(modifiers[MIDDLE_CLICK] && MiddleClickOn(A))
+	if(modifiers["middle"] && MiddleClickOn(A))
 		return
-	if(modifiers[SHIFT_CLICK] && modifiers[RIGHT_CLICK])
+	if(modifiers["shift"] && modifiers["right"])
 		ShiftRightClickOn(A)
 		return
-	if(modifiers[SHIFT_CLICK] && ShiftClickOn(A))
+	if(modifiers["shift"] && ShiftClickOn(A))
 		return
-	if(modifiers[ALT_CLICK] && modifiers[RIGHT_CLICK])
+	if(modifiers["alt"] && modifiers["right"])
 		AltRightClickOn(A)
 		return
-	if(modifiers[ALT_CLICK] && AltClickOn(A))
+	if(modifiers["alt"] && AltClickOn(A))
 		return
-	if(modifiers[CTRL_CLICK])
+	if(modifiers["ctrl"])
 		CtrlClickOn(A)
 		return
-	if(modifiers[RIGHT_CLICK] && RightClickOn(A))
+	if(modifiers["right"] && RightClickOn(A))
 		return
 
 	if(incapacitated(TRUE))
@@ -123,7 +120,7 @@
 	var/obj/item/W = get_active_held_item()
 
 	if(W == A)
-		if(modifiers[RIGHT_CLICK])
+		if(modifiers["right"])
 			W.attack_self_alternate(src)
 		else
 			W.attack_self(src)
@@ -136,7 +133,7 @@
 	//User itself, current loc, and user inventory
 	if(A in DirectAccess())
 		if(W)
-			W.melee_attack_chain(src, A, params, modifiers[RIGHT_CLICK])
+			W.melee_attack_chain(src, A, params, modifiers["right"])
 		else
 			UnarmedAttack(A, FALSE, modifiers)
 		return
@@ -148,7 +145,7 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A, W))
 		if(W)
-			W.melee_attack_chain(src, A, params, modifiers[RIGHT_CLICK])
+			W.melee_attack_chain(src, A, params, modifiers["right"])
 		else
 			UnarmedAttack(A, TRUE, modifiers)
 	else

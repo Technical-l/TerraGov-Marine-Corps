@@ -65,7 +65,7 @@ ADMIN_VERB(hive_status, R_FUN, "Check Hive Status", "Check the status of the hiv
 	if(!SSticker)
 		return
 
-	check_hive_status(user.mob)
+	check_hive_status(user)
 
 	log_admin("[key_name(user)] checked the hive status.")
 	message_admins("[key_name_admin(user)] checked the hive status.")
@@ -118,7 +118,7 @@ ADMIN_VERB(command_report, R_FUN, "Command Report", "Create a custom command rep
 	message_admins("[ADMIN_TPMONTY(user.mob)] has created a command report.")
 
 ADMIN_VERB(narrate_global, R_FUN, "Global Narrate", "Directly send text to everyone", ADMIN_CATEGORY_FUN)
-	var/msg = tgui_input_text(user, "Enter the text you wish to appear to everyone.", "Global Narrate", multiline = TRUE , encode = FALSE)
+	var/msg = tgui_input_text(user, "Enter the text you wish to appear to everyone.", "Global Narrate", multiline = TRUE , encode = FALSE, max_length = INFINITY)
 
 	if(!msg)
 		return
@@ -344,7 +344,7 @@ ADMIN_VERB(music_stop, R_SOUND, "Stop Playing Music", "Stop currently playing in
 	message_admins("[ADMIN_TPMONTY(user.mob)] stopped the currently playing music.")
 
 ADMIN_VERB(announce, R_FUN, "Admin Announce", "Do an admin announcement to all players.", ADMIN_CATEGORY_FUN)
-	var/message = tgui_input_text(user, "Global message to send:", "Admin Announce", multiline = TRUE, encode = FALSE)
+	var/message = tgui_input_text(user, "Global message to send:", "Admin Announce", multiline = TRUE, encode = FALSE, max_length = INFINITY)
 
 	message = noscript(message)
 
@@ -634,7 +634,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(release, R_FUN, "Release Obj", obj/OB in world)
 		var/mob/living/carbon/human/H = M
 		H.name = H.get_visible_name()
 
-	M.abstract_move(get_turf(M.control_object))
+	M.loc = get_turf(M.control_object)
 	M.reset_perspective()
 	M.control_object = null
 
