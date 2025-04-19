@@ -1,6 +1,6 @@
-#define STAGE_ONE_BLOODTHIRST 100
-#define STAGE_TWO_BLOODTHIRST 300
-#define STAGE_THREE_BLOODTHIRST 400
+#define STAGE_ONE_BLOODTHIRST 200
+#define STAGE_TWO_BLOODTHIRST 400
+#define STAGE_THREE_BLOODTHIRST 700
 
 // ***************************************
 // *********** Charge
@@ -18,6 +18,10 @@
 	///charge distance
 	var/charge_range = RAV_CHARGEDISTANCE
 
+/datum/action/ability/activable/xeno/charge/nocost
+	desc = "Charge and viciously attack your target. Initial charge distance is very short, but increases as you gain bloodthirst."
+	ability_cost = 0
+
 /datum/action/ability/activable/xeno/charge/use_ability(atom/A)
 	if(!A)
 		return
@@ -29,17 +33,22 @@
 	span_danger("We charge towards \the [A]!") )
 	xeno_owner.emote("roar")
 	xeno_owner.xeno_flags |= XENO_LEAPING //This has to come before throw_at, which checks impact. So we don't do end-charge specials when thrown
+	succeed_activate()
+
 	var/multiplier = 1
 	if(HAS_TRAIT(owner, TRAIT_BLOODTHIRSTER))
-		if(xeno_owner.plasma_stored >= STAGE_TWO_BLOODTHIRST)
-			multiplier += 0.5
-			if(xeno_owner.plasma_stored >= STAGE_THREE_BLOODTHIRST)
+		if(xeno_owner.plasma_stored <= STAGE_ONE_BLOODTHIRST)
+			multiplier -= 0.5
+			if(xeno_owner.plasma_stored >= STAGE_ONE_BLOODTHIRST)
 				multiplier += 0.5
+				if(xeno_owner.plasma_stored >= STAGE_TWO_BLOODTHIRST)
+					multiplier += 0.5
+					if(xeno_owner.plasma_stored >= STAGE_THREE_BLOODTHIRST)
+						multiplier += 0.5
 
 	xeno_owner.throw_at(A, charge_range*multiplier, RAV_CHARGESPEED*multiplier, xeno_owner)
 
 	add_cooldown()
-	succeed_activate()
 
 
 /datum/action/ability/activable/xeno/charge/on_cooldown_finish()
@@ -103,6 +112,11 @@
 // ***************************************
 // *********** Ravage
 // ***************************************
+
+#define STAGE_ONE_BLOODTHIRST_RAVAGE_COOLDOWN 8 SECONDS
+#define STAGE_TWO_BLOODTHIRST_RAVAGE_COOLDOWN 5 SECONDS
+#define STAGE_THREE_BLOODTHIRST_RAVAGE_COOLDOWN 4 SECONDS
+
 /datum/action/ability/activable/xeno/ravage
 	name = "Ravage"
 	action_icon_state = "ravage"
@@ -117,6 +131,11 @@
 	)
 	/// Used for particles. Holds the particles instead of the mob. See particle_holder for documentation.
 	var/obj/effect/abstract/particle_holder/particle_holder
+
+/datum/action/ability/activable/xeno/ravage/bloodthirster
+	desc = "Attacks and knockbacks enemies in the direction your facing. Has a long cooldown, but it gets shorter as you gain bloodthirst."
+	ability_cost = 0
+	cooldown_duration = 14 SECONDS
 
 /datum/action/ability/activable/xeno/ravage/on_cooldown_finish()
 	to_chat(owner, span_xenodanger("We gather enough strength to Ravage again."))
@@ -171,6 +190,18 @@
 		human_victim.Paralyze(1 SECONDS)
 
 	succeed_activate()
+	if(HAS_TRAIT(owner, TRAIT_BLOODTHIRSTER))
+		if(xeno_owner.plasma_stored >= STAGE_THREE_BLOODTHIRST)
+			add_cooldown(STAGE_THREE_BLOODTHIRST_RAVAGE_COOLDOWN)
+			return
+		else
+			if(xeno_owner.plasma_stored >= STAGE_TWO_BLOODTHIRST)
+				add_cooldown(STAGE_TWO_BLOODTHIRST_RAVAGE_COOLDOWN)
+				return
+			else
+				if(xeno_owner.plasma_stored >= STAGE_ONE_BLOODTHIRST)
+					add_cooldown(STAGE_ONE_BLOODTHIRST_RAVAGE_COOLDOWN)
+					return
 	add_cooldown()
 
 /// Handles the activation and deactivation of particles, as well as their appearance.
@@ -240,6 +271,9 @@
 	var/endure_duration
 	///Timer for Endure's warning
 	var/endure_warning_duration
+
+/datum/action/ability/xeno_action/endure/nocost
+	ability_cost = 0
 
 /datum/action/ability/xeno_action/endure/on_cooldown_finish()
 	to_chat(owner, span_xenodanger("We feel able to imbue ourselves with plasma to Endure once again!"))
@@ -589,29 +623,24 @@
 	particle_holder.pixel_x = 18
 	timer_ref = QDEL_NULL_IN(src, particle_holder, heal_delay)
 
-#define BLOODTHIRST_DECAY_PER_TICK 30
-#define LOWEST_BLOODTHIRST_HP_ALLOWED 100
-#define MAX_DAMAGE_PER_DISINTEGRATING 25
+// ***************************************
+// *********** Bloodthirst
+// ***************************************
+
+#define BLOODTHIRST_DECAY_PER_TICK 75
 
 /datum/action/ability/xeno_action/bloodthirst
 	name = "bloodthirst"
-	desc = "Passive ability for generating bloodthirst"
+	desc = "Gain stat boosts and upgraded abilities as you gain plasma, but plasma rapidly decreases if you have not dealt damage in 3 seconds. You can only gain plasma through dealing damage."
 	hidden = TRUE
 	///tick time of last time we attacked a human
 	var/last_fight_time
-	///time when we last hit 0 bloodthirst/plasma
-	var/hit_zero_time
 	/// delay until decaying starts
-	var/decay_delay = 30 SECONDS
-	///once bloodthirst hits 0 how long
-	var/damage_delay = 30 SECONDS
-	///used to track if effects played for disintegration start
-	var/disintegrating = FALSE
+	var/decay_delay = 3 SECONDS
 
 /datum/action/ability/xeno_action/bloodthirst/give_action(mob/living/L)
 	. = ..()
 	RegisterSignal(L, COMSIG_XENOMORPH_ATTACK_LIVING, PROC_REF(on_attack))
-	RegisterSignal(L, COMSIG_XENOMORPH_TAKING_DAMAGE, PROC_REF(on_take_damage))
 	ADD_TRAIT(L, TRAIT_BLOODTHIRSTER, TRAIT_GENERIC)
 	START_PROCESSING(SSprocessing, src)
 	last_fight_time = world.time
@@ -629,11 +658,6 @@
 		return
 	last_fight_time = world.time
 
-///sig handler to track last attacked for bloodthirst
-/datum/action/ability/xeno_action/bloodthirst/proc/on_take_damage(datum/source, damage)
-	SIGNAL_HANDLER
-	last_fight_time = world.time
-
 /datum/action/ability/xeno_action/bloodthirst/process()
 	var/mob/living/carbon/xenomorph/xeno = owner
 	if(!last_fight_time) // you may live until first attack happens
@@ -641,19 +665,112 @@
 	if(last_fight_time + decay_delay > world.time)
 		return
 	if(xeno.use_plasma(BLOODTHIRST_DECAY_PER_TICK))
-		disintegrating = FALSE
+		decay_delay = world.time
+		owner.balloon_alert(owner, "calming...")
+		xeno.playsound_local(xeno, 'sound/voice/hiss5.ogg', 50) //i cant get this alert to work, might just leave it cause fuck it
 		return
-	if(!disintegrating)
-		hit_zero_time = world.time
-		owner.balloon_alert(owner, "disintegrating...")
-		xeno.playsound_local(xeno, 'sound/voice/hiss5.ogg', 50)
-		disintegrating = TRUE
-		return
-	if((hit_zero_time + damage_delay) < world.time)
-		//take  damage per tick down to a minimum allowed hp
-		var/damage_taken = min(MAX_DAMAGE_PER_DISINTEGRATING, (xeno.health - xeno.health_threshold_crit - LOWEST_BLOODTHIRST_HP_ALLOWED))
-		xeno.take_overall_damage(damage_taken)
 
+/mob/living/carbon/xenomorph/ravager/bloodthirster/proc/update_bloodthirst()
+	if(QDELETED(src))
+		return
+
+// ***************************************
+// *********** Bloodthirst overlay and stat boosts
+// ***************************************
+
+/mob/living/carbon/xenomorph/proc/update_bloodthirst()
+	if(QDELETED(src))
+		return
+
+	remove_overlay(WOUND_LAYER)
+	remove_filter("wounded_filter")
+
+	var/bloodthirst_thresholds
+	bloodthirst_overlay.layer = layer + 0.2
+	bloodthirst_overlay.icon = src.icon
+	bloodthirst_overlay.vis_flags |= VIS_HIDE
+	if(xeno_owner.plasma_stored < STAGE_ONE_BLOODTHIRST)
+		bloodthirst_overlay.icon_state = "none"
+		return // Overlay doesnt show below 200 plasma
+	else if(xeno_owner.plasma_stored > STAGE_ONE_BLOODTHIRST)
+		if(xeno_owner.plasma_stored == STAGE_THREE_BLOODTHIRST)
+			bloodthirst_thresholds = 3
+		if(xeno_owner.plasma_stored == (STAGE_THREE_BLOODTHIRST >= STAGE_TWO_BLOODTHIRST))
+			bloodthirst_thresholds = 2
+		if(xeno_owner.plasma_stored == (STAGE_TWO_BLOODTHIRST >= STAGE_ONE_BLOODTHIRST))
+			bloodthirst_thresholds = 1
+	var/bloodthirst_overlay_to_show
+	if(lying_angle)
+		if((resting || IsSleeping()) && (!IsParalyzed() && !IsUnconscious() && health > 0))
+			bloodthirst_overlay_to_show = "bloodthirster_resting_bloodthirst_[bloodthirst_thresholds]"
+		else
+			bloodthirst_overlay_to_show = "bloodthirster_stunned_bloodthirst_[bloodthirst_thresholds]"
+	else if(!handle_special_state())
+		bloodthirst_overlay_to_show = "bloodthirster_bloodthirst_[bloodthirst_thresholds]"
+
+	bloodthirst_overlay.icon_state = "[bloodthirst_overlay_to_show]"
+
+	if(xeno_caste.caste_flags & CASTE_HAS_WOUND_MASK)
+		var/image/wounded_mask = image(icon, null, "alpha_[bloodthirst_overlay_to_show]")
+		wounded_mask.render_target = "*wound[REF(src)]"
+		overlays_standing[WOUND_LAYER] = wounded_mask
+		apply_overlay(WOUND_LAYER)
+		add_filter("wounded_filter", 1, alpha_mask_filter(0, 0, null, "*wound[REF(src)]", MASK_INVERSE))
+
+	bloodthirst_overlay.vis_flags &= ~VIS_HIDE // Show the overlay
+
+// ***************************************
+// *********** Health overlay
+// ***************************************
+
+	remove_overlay(WOUND_LAYER)
+	remove_filter("wounded_filter")
+
+	var/health_thresholds
+	wound_overlay.layer = layer + 0.3
+	wound_overlay.icon = src.icon
+	wound_overlay.vis_flags |= VIS_HIDE
+	if(HAS_TRAIT(src, TRAIT_XENOMORPH_INVISIBLE_BLOOD))
+		wound_overlay.icon_state = "none"
+		return
+	if(health > health_threshold_crit)
+		health_thresholds = CEILING((health * 4) / (maxHealth), 1) //From 1 to 4, in 25% chunks
+		if(health_thresholds > 3)
+			wound_overlay.icon_state = "none"
+			return //Injuries appear at less than 75% health
+	else if(health_threshold_dead)
+		switch(CEILING((health * 3) / health_threshold_dead, 1)) //Negative health divided by a negative threshold, positive result.
+			if(0 to 1)
+				health_thresholds = 1
+			if(2)
+				health_thresholds = 2
+			if(3 to INFINITY)
+				health_thresholds = 3
+	var/overlay_to_show
+	if(lying_angle)
+		if((resting || IsSleeping()) && (!IsParalyzed() && !IsUnconscious() && health > 0))
+			overlay_to_show = "wounded_resting_[health_thresholds]"
+		else
+			overlay_to_show = "wounded_stunned_[health_thresholds]"
+	else if(!handle_special_state())
+		overlay_to_show = "wounded_[health_thresholds]"
+	else
+		overlay_to_show = handle_special_wound_states(health_thresholds)
+
+	wound_overlay.icon_state = "[xeno_caste.wound_type]_[overlay_to_show]"
+
+	if(xeno_caste.caste_flags & CASTE_HAS_WOUND_MASK)
+		var/image/wounded_mask = image(icon, null, "alpha_[overlay_to_show]")
+		wounded_mask.render_target = "*wound[REF(src)]"
+		overlays_standing[WOUND_LAYER] = wounded_mask
+		apply_overlay(WOUND_LAYER)
+		add_filter("wounded_filter", 1, alpha_mask_filter(0, 0, null, "*wound[REF(src)]", MASK_INVERSE))
+
+	wound_overlay.vis_flags &= ~VIS_HIDE // Show the overlay
+
+// ***************************************
+// *********** Deathmark
+// ***************************************
 
 #define DEATHMARK_DAMAGE_OR_DIE 400
 #define DEATHMARK_DURATION 40 SECONDS
@@ -682,7 +799,6 @@
 	RegisterSignal(owner, COMSIG_XENOMORPH_ATTACK_LIVING, PROC_REF(on_attack))
 	damage_dealt = 0
 	xeno.use_plasma(-xeno.xeno_caste.plasma_max) // fill it to the max so they can kill better
-	xeno.add_movespeed_modifier(MOVESPEED_ID_RAVAGER_DEATHMARK, TRUE, 0, NONE, TRUE, -0.75) //Extra speed so they can get to where to kill better
 	xeno.emote("roar")
 	add_cooldown()
 

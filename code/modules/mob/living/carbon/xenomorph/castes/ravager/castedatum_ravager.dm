@@ -94,13 +94,22 @@
 	caste_name = "Bloodthirster"
 	display_name = "Bloodthirster"
 	upgrade_name = ""
-	caste_desc = "A thirsting fighter that knows no rest."
+	caste_desc = "A brutal, unrelenting berserker that gets stronger as it fights."
 	caste_type_path = /mob/living/carbon/xenomorph/ravager/bloodthirster
 	upgrade = XENO_UPGRADE_BASETYPE
 	wound_type = "ravager" //used to match appropriate wound overlays
 
-	// *** Plasma *** //
-	plasma_max = 500
+	// *** Melee Attacks *** // - Loses 2 slash damage
+	melee_damage = 23
+
+	// *** Speed *** // Gains 0.2 movedelay
+	speed = -0.8
+
+	// *** Defense *** // Loses 10 of all softarmor
+	soft_armor = list(MELEE = 40, BULLET = 45, LASER = 40, ENERGY = 40, BOMB = 0, BIO = 30, FIRE = 60, ACID = 30)
+
+	// *** Plasma *** // Plasma used to track bloodlust level, not for abilities
+	plasma_max = 700
 	plasma_gain = 0
 	plasma_icon_state = "fury"
 
@@ -114,22 +123,22 @@
 		/datum/action/ability/xeno_action/xeno_resting,
 		/datum/action/ability/xeno_action/watch_xeno,
 		/datum/action/ability/activable/xeno/psydrain,
-		/datum/action/ability/activable/xeno/charge,
-		/datum/action/ability/activable/xeno/ravage,
-		/datum/action/ability/xeno_action/endure,
+		/datum/action/ability/activable/xeno/charge/nocost,
+		/datum/action/ability/activable/xeno/ravage/bloodthirster,
+		/datum/action/ability/xeno_action/endure/nocost,
 		/datum/action/ability/xeno_action/rage,
 		/datum/action/ability/xeno_action/bloodthirst,
 	)
 	plasma_damage_dealt_mult = 2
-	plasma_damage_recieved_mult = 0.75
+	plasma_damage_recieved_mult = 0
 
 /datum/xeno_caste/ravager/bloodthirster/normal
 	upgrade = XENO_UPGRADE_NORMAL
 
 /datum/xeno_caste/ravager/bloodthirster/primordial
 	upgrade_name = "Primordial"
-	caste_desc = "A blood caked merciless killer."
-	primordial_message = "BLOOD FOR THE BLOOD GOD! SKULLS FOR THE SKULL THRONE!"
+	caste_desc = "A berserker that knows only death; for both its opponents and itself."
+	primordial_message = "I see red when its time to go man. For real man dont fuck with me"
 	upgrade = XENO_UPGRADE_PRIMO
 
 	// *** Abilities *** //
@@ -137,9 +146,9 @@
 		/datum/action/ability/xeno_action/xeno_resting,
 		/datum/action/ability/xeno_action/watch_xeno,
 		/datum/action/ability/activable/xeno/psydrain,
-		/datum/action/ability/activable/xeno/charge,
-		/datum/action/ability/activable/xeno/ravage,
-		/datum/action/ability/xeno_action/endure,
+		/datum/action/ability/activable/xeno/charge/nocost,
+		/datum/action/ability/activable/xeno/ravage/bloodthirster,
+		/datum/action/ability/xeno_action/endure/nocost,
 		/datum/action/ability/xeno_action/rage,
 		/datum/action/ability/xeno_action/bloodthirst,
 		/datum/action/ability/xeno_action/deathmark,

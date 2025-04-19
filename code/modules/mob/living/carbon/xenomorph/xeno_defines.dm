@@ -72,6 +72,11 @@
 	///Singular type path for the caste to deevolve to when forced to by the queen.
 	var/deevolves_to
 
+	///see_in_dark value while consicious
+	var/conscious_see_in_dark = 8
+	///see_in_dark value while unconscious
+	var/unconscious_see_in_dark = 5
+
 	// *** Flags *** //
 	///Bitwise flags denoting things a caste is or is not. Uses defines.
 	var/caste_flags = CASTE_EVOLUTION_ALLOWED
@@ -238,7 +243,7 @@
 		root_type = root_type::parent_type
 	return root_type
 
-/// basetype = list(strain1, strain2)
+	/// basetype = list(strain1, strain2)
 GLOBAL_LIST_INIT(strain_list, init_glob_strain_list())
 /proc/init_glob_strain_list()
 	var/list/strain_list = list()
@@ -304,6 +309,8 @@ GLOBAL_LIST_INIT(strain_list, init_glob_strain_list())
 	var/status_toggle_flags = HIVE_STATUS_DEFAULTS
 	///Handles displaying the various wound states of the xeno.
 	var/atom/movable/vis_obj/xeno_wounds/wound_overlay
+	///Handles displaying the various plasma states of the bloodthirster
+	var/atom/movable/vis_obj/xeno_wounds/bloodthirst_overlay/bloodthirst_overlay
 	///Handles displaying the various fire states of the xeno
 	var/atom/movable/vis_obj/xeno_wounds/fire_overlay/fire_overlay
 	///Handles displaying any equipped backpack item, such as a saddle
