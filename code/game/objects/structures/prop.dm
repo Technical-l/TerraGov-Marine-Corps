@@ -1279,6 +1279,7 @@
 ///BROKEN VEHICLE PROPS
 /obj/structure/prop/vehicle
 	icon = 'icons/obj/vehicles/64x64.dmi'
+	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	resistance_flags = XENO_DAMAGEABLE
 	max_integrity = 300
@@ -1901,6 +1902,54 @@
 
 /obj/structure/prop/vehicle/apc/decoration/emptyfuelcell
 	icon_state = "emptyfuelcell"
+
+/obj/structure/prop/vehicle/icc_recontank
+
+	name = "\improper LVRT 'Fallow' Recce Vehicle"
+	desc = "The Light Vehicle, Recce, Tracked 'Fallow' is an ICC reconnaissance vehicle built to go fast in order to scout out and poke at enemy positions. This one seems to be non-functional."
+	icon = 'icons/obj/armored/2x2/icc_lvrt.dmi'
+	icon_state = "icc_lvrt"
+	bound_height = 64
+	bound_width = 64
+	resistance_flags = RESIST_ALL
+
+/obj/structure/prop/vehicle/icc_recontank/wheels
+	icon_state = "icc_lvrt_underlay"
+	layer = TANK_TURRET_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/structure/prop/vehicle/icc_recontank/turret
+	icon = 'icons/obj/armored/2x2/icc_lvrt_gun.dmi'
+	icon_state = "icc_lvrt_turret"
+	density = FALSE
+	layer = TANK_TURRET_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/structure/prop/vehicle/icc_recontank/cannon
+	icon = 'icons/obj/armored/2x2/icc_lvrt_gun.dmi'
+	icon_state = "icc_lvrt_cannon"
+	density = FALSE
+	layer = TANK_TURRET_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pixel_y = -70
+	pixel_x = -70
+
+/obj/structure/prop/vehicle/icc_recontank/cannon/autocannon
+	icon_state = "icc_lvrt_autocannon"
+
+/obj/structure/prop/vehicle/icc_recontank/damage
+	icon = 'icons/obj/armored/2x2/icc_lvrt_damage.dmi'
+	icon_state = "damage_small"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/structure/prop/vehicle/icc_recontank/damage/medium
+	icon_state = "damage_medium"
+
+/obj/structure/prop/vehicle/icc_recontank/damage/high
+	icon_state = "damage_high"
+
+/obj/structure/prop/vehicle/icc_recontank/damage/veryhigh
+	icon_state = "damage_veryhigh"
 
 /obj/structure/prop/propplaceholder
 	name = "prop placeholder"
@@ -2603,6 +2652,32 @@
 	density = TRUE
 	resistance_flags = RESIST_ALL
 
+/obj/structure/prop/broken_ptrs
+	name = "\improper PTR-41/1785 anti-mech gun"
+	desc = "The PTR-41/1785 is a bottom shelf solution modernized for dealing with armor. It uses 14.5mm high velocity rounds that will certainly leave a hole in whatever unfortunate soul is hit by it. Unfortunately, this PTRS seems to be broken."
+	icon = 'icons/obj/machines/deployable/clf_heavyrifle.dmi'
+	icon_state = "ptrs_deployed"
+	coverage = 15
+	max_integrity = 100
+	resistance_flags = XENO_DAMAGEABLE
+
+/obj/structure/prop/broken_agls
+	name = "\improper AGLS-37 Kauser automatic grenade launcher"
+	desc = "The AGLS-37 automatic grenade launching system. It's too heavy to be wielded or operated without the tripod. On the back, it reads: \"Kauser is not obligated to buy you new body parts for you or your friends if you lose them.\"\n This one seems to be permanently bolted to the floor, and non-functional."
+	icon = 'icons/obj/machines/deployable/agls.dmi'
+	icon_state = "agls_deployed"
+	coverage = 15
+	max_integrity = 100
+	resistance_flags = XENO_DAMAGEABLE
+
+/obj/structure/prop/broken_howitzer
+	name = "\improper TA-100Y howitzer"
+	desc = "A manual, crew-operated and towable howitzer, will rain down 150mm laserguided and accurate shells on any of your foes. The breech on this one won't open, though."
+	icon = 'icons/obj/machines/deployable/howitzer.dmi'
+	icon_state = "howitzer_deployed"
+	max_integrity = 400
+	coverage = 65
+	resistance_flags = XENO_DAMAGEABLE
 
 #undef VENDOR_BROKEN
 #undef VENDOR_BLANK

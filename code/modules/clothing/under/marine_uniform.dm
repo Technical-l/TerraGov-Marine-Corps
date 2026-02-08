@@ -546,6 +546,12 @@
 /obj/item/clothing/under/icc/webbing
 	starting_attachments = list(/obj/item/armor_module/storage/uniform/brown_vest)
 
+/obj/item/clothing/under/icc/officer
+	name = "\improper Modelle/35 uniform"
+	desc = "The standard uniform of ICC officers. Usually worn by ICC bridge personell."
+	icon_state = "icc_officer"
+	worn_icon_state = "icc_officer"
+
 /obj/item/clothing/under/sectoid
 	name = "psionic field"
 	desc = "A field of invisible energy, it protects the wearer but prevents any clothing from being worn."

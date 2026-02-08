@@ -629,22 +629,36 @@
 //ICC
 /obj/effect/landmark/corpsespawner/icc
 	name = "ICC infantry"
-	corpseuniform = /obj/item/clothing/under/som
-	corpsesuit = /obj/item/clothing/suit/modular/som
+	corpseuniform = /obj/item/clothing/under/icc
+	corpsesuit = /obj/item/clothing/suit/storage/marine/icc
 	corpsemask = /obj/item/clothing/mask/gas
-	corpsehelmet = /obj/item/clothing/head/modular/som
-	corpsegloves = /obj/item/clothing/gloves/marine/som
-	corpseshoes = /obj/item/clothing/shoes/marine/som/knife
+	corpsehelmet = /obj/item/clothing/head/helmet/marine/icc
+	corpsegloves = /obj/item/clothing/gloves/marine/icc
+	corpseshoes = /obj/item/clothing/shoes/marine/icc/knife
 	corpsepocket1 = /obj/item/tool/lighter/zippo
 
-/obj/effect/landmark/corpsespawner/icc_officer
-	name = "ICC leader"
-	corpseuniform = /obj/item/clothing/under/icc
+/obj/effect/landmark/corpsespawner/icc/guard
+	name = "ICC guardsman"
 	corpsesuit = /obj/item/clothing/suit/storage/marine/icc/guard
-	corpsemask = /obj/item/clothing/mask/gas/icc
 	corpsehelmet = /obj/item/clothing/head/helmet/marine/icc/guard
 	corpsegloves = /obj/item/clothing/gloves/marine/icc/guard
 	corpseshoes = /obj/item/clothing/shoes/marine/icc/guard/knife
+
+/obj/effect/landmark/corpsespawner/icc/offduty
+	name = "ICC soldier"
+	corpsesuit = null
+	corpsemask = null
+	corpsehelmet = null
+	corpsegloves = null
+
+/obj/effect/landmark/corpsespawner/icc/officer
+	name = "ICC officer"
+	corpsehelmet = /obj/item/clothing/head/headset
+	corpseuniform = /obj/item/clothing/under/icc/officer
+	corpseshoes = /obj/item/clothing/shoes/jackboots
+	corpsesuit = null
+	corpsemask = null
+	corpsegloves = null
 	corpsepocket1 = /obj/item/tool/lighter/zippo
 
 // VSD

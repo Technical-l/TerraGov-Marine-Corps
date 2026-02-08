@@ -162,6 +162,99 @@
 /obj/structure/rock/dark/small/three
 	icon_state = "bouldersmalldark3"
 
+//brown rocks
+
+/obj/structure/rock/brown
+	name = "rock"
+	desc = "A rock of the brown variety."
+	icon = 'icons/obj/flora/brownrocks2.dmi'
+	icon_state = "rock"
+
+/obj/structure/rock/brown/alt
+	icon_state = "rock_2"
+
+/obj/structure/rock/brown/alt2
+	icon_state = "rock_3"
+
+/obj/structure/rock/brown/alt3
+	icon_state = "rock_4"
+
+/obj/structure/rock/brown/alt4
+	icon_state = "rock_5"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt5
+	icon_state = "rock_6"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt6
+	icon_state = "rock_7"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt7
+	icon_state = "rock_8"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt8
+	icon_state = "rock_9"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt9
+	icon_state = "rock_10"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt10
+	icon_state = "rock_11"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt11
+	icon_state = "rock_12"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt12
+	icon_state = "rock_13"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/alt13
+	icon_state = "rock_14"
+	color = "#c7bdbd"
+
+/obj/structure/rock/brown/large_boulder
+	name = "giant rock"
+	icon = 'icons/obj/flora/brown_rock_large.dmi'
+	icon_state = "boulder_1"
+	color = "#c7bdbd"
+	bound_height = 64
+	bound_width = 64
+	max_integrity = 1200
+
+/obj/structure/rock/brown/large_boulder/altone
+	icon_state = "boulder_2"
+
+/obj/structure/rock/brown/large_boulder/alttwo
+	icon_state = "boulder_3"
+	bound_height = 32
+	bound_width = 64
+
+/obj/structure/rock/brown/pile
+	name = "rock pile"
+	desc = "pile of rocks."
+	density = FALSE
+	icon_state = "rocks"
+
+/obj/structure/rock/brown/pile/alt
+	name = "rock pile"
+	icon_state = "rocks1"
+
+/obj/structure/rock/brown/pile/alt2
+	name = "rock pile"
+	icon_state = "rocks2"
+
+/obj/structure/rock/brown/pile/alt3
+	name = "fossils"
+	desc = "A pile of ancient fossils. There are some oddly shaped skulls in here..."
+	icon_state = "rocks3"
+
 // Cave props
 /obj/structure/rock/dark/stalagmite
 	icon = 'icons/obj/structures/prop/urban/urbanrandomprops.dmi'
@@ -208,6 +301,10 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	max_integrity = 100
 	icon_variants = 8
+
+/obj/structure/rock/variable/tinyrock/brown2
+	icon = 'icons/obj/flora/brownrocks2.dmi'
+	icon_state = "tinyrock"
 
 /obj/structure/rock/variable/stalagmite
 	name = "stalagmite"

@@ -122,3 +122,11 @@ endmap
 map bluemoon
 	maxplayers 40
 endmap
+
+map mountain_pass
+	minplayers 30
+endmap
+
+map vertigo
+	maxplayers 30
+endmap

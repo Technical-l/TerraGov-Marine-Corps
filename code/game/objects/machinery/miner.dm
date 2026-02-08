@@ -358,3 +358,21 @@
 	mineral_value = 0
 	miner_integrity = 0
 	set_miner_status()
+
+//Miner Reskin
+
+/obj/machinery/miner/intelligence
+	name = "\improper ICC data storage computer"
+	desc = "A secure terminal containing encrypted information about the ICC's military and their allies. Recovering the data stored within might just grant your unit extra funding."
+	icon_state = "terminal_active"
+
+/obj/machinery/miner/intelligence/damaged
+	miner_status = MINER_DESTROYED
+	icon_state = "terminal_error"
+
+/obj/machinery/miner/intelligence/damaged/secure
+	name = "\improper ICC secure data storage computer"
+	desc = "A secure terminal containing extremely sensitive data concerning the ICC's military and their allies. The data stored within is worth a lot of money..."
+	mineral_value = PLATINUM_CRATE_SELL_AMOUNT
+	dropship_bonus = PLATINUM_DROPSHIP_BONUS_AMOUNT
+

@@ -1060,6 +1060,8 @@
 		var/mutable_appearance/emissive_overlay = emissive_appearance(icon_used, "[worn_icon_state]_emissive", src)
 		standing.overlays.Add(emissive_overlay)
 
+// Serpenta
+
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/serpenta
 	name = "\improper VX-12 Serpenta"
 	desc = "Volkite weapons are the pride of Martian weapons manufacturing, their construction being a tightly guarded secret. Infamous for its ability to deflagrate organic targets with its tremendous thermal energy, explosively burning flesh in a fiery blast that can be deadly to anyone unfortunate enough to be nearby. The 'serpenta' is pistol typically seen in the hands of SOM officers and some NCOs, and is quite dangerous for it's size."
@@ -1098,6 +1100,8 @@
 	accuracy_mult = 1.25
 	accuracy_mult_unwielded = 0.95
 
+// Charger
+
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/charger
 	name = "\improper VX-32 Charger"
 	desc = "Volkite weapons are the pride of Martian weapons manufacturing, their construction being a tightly guarded secret. Infamous for its ability to deflagrate organic targets with its tremendous thermal energy, explosively burning flesh in a fiery blast that can be deadly to anyone unfortunate enough to be nearby. The charger is a light weight weapon with a high rate of fire, designed for high mobility and easy handling. Ineffective at longer ranges."
@@ -1134,6 +1138,8 @@
 
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/charger/scout
 	starting_attachment_types = list(/obj/item/attachable/motiondetector, /obj/item/attachable/gyro)
+
+// Caliver
 
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/caliver
 	name = "\improper VX-33 Caliver"
@@ -1184,6 +1190,16 @@
 
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/caliver/standard
 	starting_attachment_types = list(/obj/item/attachable/reddot, /obj/item/attachable/lasersight)
+
+// broken caliver, for shits and giggles
+
+/obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/caliver/broken
+	desc = "Volkite weapons are the pride of Martian weapons manufacturing, their construction being a tightly guarded secret. Infamous for its ability to deflagrate organic targets with its tremendous thermal energy, explosively burning flesh in a fiery blast that can be deadly to anyone unfortunate enough to be nearby. The caliver is the primary rifle of the volkite family, and effective at most ranges and situations. The electronics in this caliver seem to be malfunctioning though. You probably shouldn't be using this thing."
+	scatter = 30
+	scatter_unwielded = 45
+	damage_mult = 0.5
+
+// Culverin
 
 /obj/item/weapon/gun/energy/lasgun/lasrifle/volkite/culverin
 	name = "\improper VX-42 Culverin"

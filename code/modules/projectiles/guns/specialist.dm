@@ -972,6 +972,13 @@ Note that this means that snipers will have a slowdown of 3, due to the scope
 	if(istype(in_chamber, /obj/item/ammo_magazine/rocket/icc/thermobaric))
 		gun_user?.record_war_crime()
 
+//broken version of the ICC RPG
+/obj/item/weapon/gun/launcher/rocket/icc/broken
+	desc = "The Man Portable-Infantry Rocket Launcher is a man portable warhead launcher employed by the ICC. Being capable of firing a wide variety of 83m rear-mounted rockets to provide excellent tactical flexibility in a compact package. The trigger on this one seems tight though. You probably shouldn't fire this..."
+	windup_delay = 10 SECONDS
+//GOOD HITS
+	scatter = 45
+
 //VSD RPG
 /obj/item/weapon/gun/launcher/rocket/vsd
 	name = "\improper C153 shoulder launcher"
